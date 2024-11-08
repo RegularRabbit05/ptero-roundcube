@@ -2,12 +2,6 @@ FROM php:8.1-fpm-alpine
 LABEL maintainer="Thomas Bruederli <thomas@roundcube.net>"
 LABEL org.opencontainers.image.source="https://github.com/roundcube/roundcubemail-docker"
 
-RUN adduser -D -h /home/container container
-RUN adduser container wheel
-USER container
-ENV  USER=container HOME=/home/container
-WORKDIR /home/container
-
 RUN set -ex; \
 	if [ "fpm-alpine" = "apache" ]; then a2enmod rewrite; fi; \
 	\
@@ -83,8 +77,6 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # use custom PHP settings
 COPY php.ini /usr/local/etc/php/conf.d/roundcube-defaults.ini
 
-COPY --chmod=0755 entrypoint.sh /
-
 # Define Roundcubemail version
 ENV ROUNDCUBEMAIL_VERSION 1.6.9
 
@@ -115,6 +107,15 @@ RUN set -ex; \
 	apk del .fetch-deps; \
 # Create the config dir
 	mkdir -p /var/roundcube/config
+
+
+RUN adduser -D -h /home/container container
+RUN adduser container wheel
+USER container
+ENV  USER=container HOME=/home/container
+WORKDIR /home/container
+
+COPY --chmod=0755 entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
