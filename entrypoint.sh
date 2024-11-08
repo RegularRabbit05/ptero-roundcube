@@ -3,6 +3,8 @@
 
 # PWD=`pwd`
 
+/bin/bash "/autoconf.sh"
+
 if  [[ "$1" == apache2* || "$1" == php-fpm || "$1" == bin* ]]; then
   INSTALLDIR=`pwd`
   # docroot is empty
