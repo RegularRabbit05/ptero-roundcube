@@ -12,7 +12,8 @@ RUN set -ex; \
 		tzdata \
 		aspell \
 		aspell-en \
-		unzip
+		unzip \
+                socat
 
 RUN set -ex; \
 	\
