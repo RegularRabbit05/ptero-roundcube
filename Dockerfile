@@ -117,6 +117,7 @@ ENV  USER=container HOME=/home/container
 WORKDIR /home/container
 
 COPY --chmod=0755 entrypoint.sh /
+COPY --chmod=0755 autoconf.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
