@@ -65,9 +65,9 @@ if  [[ "$1" == apache2* || "$1" == php-fpm || "$1" == bin* ]]; then
 
     /wait-for-it.sh ${ROUNDCUBEMAIL_DB_HOST}:${ROUNDCUBEMAIL_DB_PORT} -t 30
   else
-    # use local SQLite DB in /var/roundcube/db
+    # use local SQLite DB in /home/container/db
     : "${ROUNDCUBEMAIL_DB_TYPE:=sqlite}"
-    : "${ROUNDCUBEMAIL_DB_DIR:=/var/roundcube/db}"
+    : "${ROUNDCUBEMAIL_DB_DIR:=/home/container/db}"
     : "${ROUNDCUBEMAIL_DB_NAME:=sqlite}"
     : "${ROUNDCUBEMAIL_DSNW:=${ROUNDCUBEMAIL_DB_TYPE}:///$ROUNDCUBEMAIL_DB_DIR/${ROUNDCUBEMAIL_DB_NAME}.db?mode=0646}"
 
